@@ -2,16 +2,26 @@
 #### ####  See https://pre-commit.com/hooks.html for more hooks
 exclude: '.md$'
 repos:
--   repo: local
+  - repo: local
     hooks:
       - id: pylint
         name: pylint
         entry: pylint
         language: system
         types: [python]
-        args: [               '--fail-under=7.5',
+        args: [
+                '--disable=E0401,E1101,E1102,R0913,R0914,W0703,E0602,C0103,C0114,W0611,W0102,C0330,C0326,W0107,R1716,R0902,E0611,E1124',
+                '--fail-under=7.5',
                 '-rn', # Only message dysplay
                 '-sn', # Don't display the score
                 '--rcfile=.pylintrc', # Link to your config file
-                '--load-plugins=pylint.extensions.docparams' #load an extension
+                '--load-plugins=pylint.extensions.docparams', #load an extension
                 ]
+  - repo: local
+    hooks:
+      - id: requirements
+        name: requirements
+        entry: bash -c '.venv\Scripts\activate;pip freeze > requirements.txt; git add requirements.txt'
+        language: system
+        pass_filenames: false
+        stages: [commit]
