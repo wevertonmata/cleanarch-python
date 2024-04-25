@@ -79,7 +79,7 @@ repos:
         require_serial: true
         language: python
         types_or: [python, pyi]
-        args: ['--line-length=79', '--experimental-string-processing']
+        args: ['--line-length=79']
 
       - id: docformatter
         name: docformatter

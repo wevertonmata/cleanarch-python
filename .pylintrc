@@ -10,8 +10,12 @@ disable=
       W0221, # arguments-differ
       W0703, # broad-except
       R0801, # duplicate-code
-      
-      
+      C0303, # trailing-whitespace
+      C0115, # missing-class-docstring
+      W1302, # bad-format-string
+      R0903, # Too few public methods
+      R0022, # Useless option value
+
 # Analyse import fallback blocks. This can be used to support both Python 2 and
 # 3 compatible code, which means that the block might have code that exists
 # only in one or another interpreter, leading to false positives when analysed.
