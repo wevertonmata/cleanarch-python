@@ -1,10 +1,11 @@
+from typing import List
 from random import randint
 import pytest
 from faker import Faker
 from sqlalchemy import text
 
-from src.infra.db.entities.users import Users
-from ..settings.connection import DBConnectionHandler
+from src.domain.entities.users import Users as UsersEntity
+from src.infra.db.settings.connection import DBConnectionHandler
 from .users_repository import UsersRepository
 
 db_conn_handler = DBConnectionHandler()
@@ -30,7 +31,7 @@ def test_insert_user():
         AND age = '{mocked_age}'
     """
     resp = conn.execute(text(sql))
-    registry: Users = resp.fetchall()[0]
+    registry: UsersEntity = resp.fetchall()[0]
 
     assert registry.first_name == mocked_first_name
     assert registry.last_name == mocked_last_name
@@ -62,7 +63,7 @@ def test_select_user():
     conn.commit()
 
     users_repository = UsersRepository()
-    response: [Users] = users_repository.select_user(mocked_first_name)  # type: ignore
+    response: List[UsersEntity] = users_repository.select_user(mocked_first_name)  # type: ignore
 
     assert response[0].first_name == mocked_first_name
     assert response[0].last_name == mocked_last_name
